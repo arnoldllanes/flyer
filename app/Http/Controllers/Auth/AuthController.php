@@ -28,7 +28,7 @@ class AuthController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected $redirectTo = '/flyers/create';
 
     /**
      * Create a new authentication controller instance.
@@ -37,7 +37,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
+        $this->middleware($this->guestMiddleware(), ['except' => 'getLogout']);
     }
 
     /**
@@ -68,5 +68,12 @@ class AuthController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+    }
+
+    public function getLogout()
+    {
+        $this->logout();
+        \Session::flush();
+        return redirect('/');
     }
 }
