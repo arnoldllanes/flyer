@@ -8,27 +8,33 @@
 	
 		<hr>
 	
-			<div class="description">{!! nl2br($flyer->description) !!}</div>
+		<div class="description">{!! nl2br($flyer->description) !!}</div>
 		</div>
-		<div class="col-md-9">
-			@foreach($flyer->photos as $photo)
-				<img src="/{{ $photo->path }}">
+		<div class="col-md-9" gallery>
+			@foreach($flyer->photos->chunk(4) as $set)
+				<div class="row">
+					@foreach($set as $photo)
+						<div class="col-md-3 gallery_image">
+							<img src="/{{ $photo->thumbnail_path }}">
+						</div>
+					@endforeach
+				</div>
 			@endforeach
+
+			@if ($user && $user->owns($flyer))
+				<hr>
+				<!-- <form id="addPhotosForm" action="/{{ $flyer->zip }}/{{ $flyer->street }}/photos" method="POST" class="dropzone"> -->
+				<form id="addPhotosForm" 
+			  		action="{{ route('store_photo_path', [$flyer->zip, $flyer->street]) }}" 
+			  		method="POST" 
+			  		class="dropzone"
+				>
+					{{ csrf_field() }}
+				</form>
+			@endif
 		</div>
 	</div>
-
 	<hr>
-
-	<h2>Add Your Photos</h2>
-
-	<!-- <form id="addPhotosForm" action="/{{ $flyer->zip }}/{{ $flyer->street }}/photos" method="POST" class="dropzone"> -->
-	<form id="addPhotosForm" 
-		  action="{{ route('store_photo_path', [$flyer->zip, $flyer->street]) }}" 
-		  method="POST" 
-		  class="dropzone"
-	>
-		{{ csrf_field() }}
-	</form>
 @stop
 
 @section('scripts.footer')

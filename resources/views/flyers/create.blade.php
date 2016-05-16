@@ -5,7 +5,7 @@
 	
 	<hr>
 
-	<form action="/flyers" method="post" enctype="multipart/form-data">
+	<form action="{{ action('FlyersController@store') }}" method="POST" enctype="multipart/form-data">
 		@include('flyers.form')
 
 		@if(count($errors) > 0)
