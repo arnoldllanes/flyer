@@ -4,7 +4,7 @@
 	<div class="row">
 		<div class="col-md-3">
 			<h1>{{ $flyer->street }}</h1>
-			<h2>{!! $flyer->price !!}</h2>
+			<h2>{{ $flyer->price }}</h2>
 	
 		<hr>
 	
@@ -15,7 +15,17 @@
 				<div class="row">
 					@foreach($set as $photo)
 						<div class="col-md-3 gallery_image">
-							<img src="/{{ $photo->thumbnail_path }}">
+							<form method="POST" action="/photos/{{ $photo->id }}">
+								{!! csrf_field() !!}
+								<input type="hidden" name="_method" value="DELETE">
+
+								<button type="submit">Delete</button>
+								
+							</form>
+
+							<a href="/{{ $photo->path }}" data-lity>
+								<img src="/{{ $photo->thumbnail_path }}">
+							</a>
 						</div>
 					@endforeach
 				</div>

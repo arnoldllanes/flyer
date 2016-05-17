@@ -25,5 +25,5 @@ function flash($title = null, $message = null)
  **/
 function flyer_path(App\Flyer $flyer)
 {
-	return $flyer->zip . '/' . str_replace(' ', '-', $this->street);
+	return $flyer->zip . '/' . str_replace(' ', '-', $flyer->street);
 }
