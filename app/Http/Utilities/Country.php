@@ -5,7 +5,7 @@ namespace App\Http\Utilities;
 class Country
 {
 	protected static $countries =  [
-		"United States"                                => "us",
+		  "United States"                                => "us",
 		  "Afghanistan"                                  => "af",
 		  "Albania"                                      => "al",
 		  "Algeria"                                      => "dz",
